@@ -1,1 +1,1 @@
-# makefile
+# Makefile for generic C projects
