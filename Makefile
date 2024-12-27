@@ -1,17 +1,15 @@
 FLAGS = -Wall -g
 TEST_FLAGS = 
-BUILDS = ./build
 LIBRARIES = 
 TEST_LIBRARIES = $(LIBRARIES) \
 								 
 INCLUDES = -I. \
 
+BUILDS = ./build
 TARGETS = $(BUILDS)/targets
-TEST_TARGETS = $(BUILDS)/test
-
+TEST_TARGET = $(BUILDS)/test
 BINARY_NAME = main
-
-BUILT_BINARY = $(TARGETS)/$(BINARY_NAME)
+BUILD_TARGET = $(TARGETS)/$(BINARY_NAME)
 
 # Recursively find all *_test.c files in the current directory and subdirectories
 test-sources-tests := $(shell find . -name '*_test.c')
@@ -39,13 +37,13 @@ build: build_objects
 	@ cc main.c $(objects) $(FLAGS) $(INCLUDES) $(LIBRARIES) -o $(TARGETS)/$(BINARY_NAME)
 
 run: build
-	@ $(TARGETS)/$(BINARY_NAME)
+	@ $(BUILD_TARGET)
 
 build_tests: build_directory
-	@ cc $(test-sources) $(FLAGS) $(INCLUDES) $(TEST_LIBRARIES) -o $(TARGETS)/test
+	@ cc $(test-sources) $(FLAGS) $(INCLUDES) $(TEST_LIBRARIES) -o $(TEST_TARGET)
 
 test: build_tests
-	@ $(TEST_TARGETS) $(TEST_FLAGS)
+	@ $(TEST_TARGET) $(TEST_FLAGS)
 
 
 clean:
